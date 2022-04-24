@@ -20,12 +20,31 @@ namespace ORCAS
             DecayNeeds();
         }
 
+        public void ApplyReward(Reward reward)
+        {
+            int index = GetNeedIndex(reward.NeedType);
+
+            Need need = CurrentNeeds[index];
+            need.Amount = GetResultingNeedAmount(reward);
+
+            CurrentNeeds[index] = need;
+        }
+
+        public float GetResultingNeedAmount(Reward reward)
+        {
+            var need = GetNeed(reward.NeedType);
+            return Mathf.Min(need.Amount + reward.Amount, Profile.MaximumNeedAmount);
+        }
+
+        public Need GetNeed(NeedType type) => CurrentNeeds.Find((need) => need.Type == type);
+        public int GetNeedIndex(NeedType type) => CurrentNeeds.FindIndex((need) => need.Type == type);
+
         private void DecayNeeds()
         {
             for (int i = 0; i < CurrentNeeds.Count; i++)
             {
                 var need = CurrentNeeds[i];
-                need.Amount = Mathf.Max(need.Amount - _profile.DecayAmount, 0f);
+                need.Amount = Mathf.Max(need.Amount - _profile.DecayAmount, 1f);
                 CurrentNeeds[i] = need;
             }
         }
