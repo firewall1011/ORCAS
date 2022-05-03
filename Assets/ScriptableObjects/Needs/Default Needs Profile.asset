@@ -14,4 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NeedTypes: {fileID: 11400000, guid: c5dd7a970f2a0f7408f064d8766a17a4, type: 2}
   _maximumNeedAmount: 100
-  _decayAmount: 0.14467596
+  _decayAmounts:
+  - 0.033333335
+  - 0.03333334
+  - 0.03333334
+  _scoringDeltas:
+  - 0
+  - 0
+  - 0

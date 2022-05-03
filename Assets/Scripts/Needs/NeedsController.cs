@@ -44,7 +44,7 @@ namespace ORCAS
             for (int i = 0; i < CurrentNeeds.Count; i++)
             {
                 var need = CurrentNeeds[i];
-                need.Amount = Mathf.Max(need.Amount - _profile.DecayAmount, 1f);
+                need.Amount = Mathf.Max(need.Amount - _profile.GetDecayAmount(need.Type), 1f);
                 CurrentNeeds[i] = need;
             }
         }

@@ -6,10 +6,23 @@ namespace ORCAS
     public class NeedsProfile : ScriptableObject 
     {
         public SerializedList<NeedType> NeedTypes;
-        public float MaximumNeedAmount => _maximumNeedAmount;
-        public float DecayAmount => _decayAmount;
 
         [SerializeField] private float _maximumNeedAmount;
-        [SerializeField] private float _decayAmount;
+        [SerializeField] private float[] _decayAmounts;
+        [SerializeField] private float[] _scoringDeltas;
+        
+        public float MaximumNeedAmount => _maximumNeedAmount;
+        
+        public float GetDecayAmount(NeedType type)
+        {
+            int index = NeedTypes.List.FindIndex((t) => t == type);
+            return _decayAmounts[index];
+        }
+
+        public float GetScoringDelta(NeedType type)
+        {
+            int index = NeedTypes.List.FindIndex((t) => t == type);
+            return _scoringDeltas[index];
+        }
     }
 }
