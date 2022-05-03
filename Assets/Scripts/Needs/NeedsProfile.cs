@@ -9,7 +9,7 @@ namespace ORCAS
 
         [SerializeField] private float _maximumNeedAmount;
         [SerializeField] private float[] _decayAmounts;
-        [SerializeField] private float[] _scoringDeltas;
+        [SerializeField] private float[] _scoringMultipliers;
         
         public float MaximumNeedAmount => _maximumNeedAmount;
         
@@ -19,10 +19,10 @@ namespace ORCAS
             return _decayAmounts[index];
         }
 
-        public float GetScoringDelta(NeedType type)
+        public float GetScoringMultiplier(NeedType type)
         {
             int index = NeedTypes.List.FindIndex((t) => t == type);
-            return _scoringDeltas[index];
+            return _scoringMultipliers[index];
         }
     }
 }
