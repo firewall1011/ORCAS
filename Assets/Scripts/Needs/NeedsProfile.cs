@@ -8,8 +8,8 @@ namespace ORCAS
         public SerializedList<NeedType> NeedTypes;
 
         [SerializeField] private float _maximumNeedAmount;
-        [SerializeField] private float[] _decayAmounts;
-        [SerializeField] private float[] _scoringMultipliers;
+        [SerializeField, HideInInspector] private float[] _decayAmounts;
+        [SerializeField, HideInInspector] private float[] _scoringMultipliers;
         
         public float MaximumNeedAmount => _maximumNeedAmount;
         

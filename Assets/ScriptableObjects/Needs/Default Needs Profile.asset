@@ -16,9 +16,9 @@ MonoBehaviour:
   _maximumNeedAmount: 100
   _decayAmounts:
   - 0.033333335
-  - 0.03333334
-  - 0.03333334
+  - 0.033333335
+  - 0.033333335
   _scoringMultipliers:
   - 1
-  - 0.5
   - 1
+  - 0.2
