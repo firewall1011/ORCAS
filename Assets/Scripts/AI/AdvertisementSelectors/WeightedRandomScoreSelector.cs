@@ -11,6 +11,11 @@ namespace ORCAS
 
         public Advertisement[] Select(Agent agent, float[] scores, List<Advertisement[]> advertisements)
         {
+            if(scores.Length == 0)
+            {
+                return new Advertisement[0];
+            }
+
             SortedList<float, int> sortedScores = new SortedList<float, int>((scores.Length));
 
             int repetitions = 0;
