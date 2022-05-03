@@ -84,7 +84,8 @@ namespace ORCAS
                     float pastValue = _needsController.GetNeed(reward.NeedType).Amount;
                     float newValue = _needsController.GetResultingNeedAmount(reward);
 
-                    total += Atenuation(pastValue) - Atenuation(newValue);
+                    float newScore = Atenuation(pastValue) - Atenuation(newValue);
+                    total += newScore * _needsController.Profile.GetScoringMultiplier(reward.NeedType);
                 }
 
                 scores[i] = total;
