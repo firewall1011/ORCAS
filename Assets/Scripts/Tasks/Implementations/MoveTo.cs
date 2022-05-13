@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace ORCAS
 {
-    public class MoveWithNavMesh : Task
+    public class MoveTo : Task
     {
         public readonly Transform target;
 
-        public MoveWithNavMesh(Transform target)
+        public MoveTo(Transform target)
         {
             this.target = target;
         }
