@@ -19,14 +19,18 @@ namespace ORCAS
                 if (!navAgent.SetDestination(target.position))
                 {
                     InvokeOnExecutionEnded(false);
+                    Debug.LogError("Cannot reach " + target.name);
+                    Debug.Break();
                     yield break;
                 }
 
-                while(navAgent.remainingDistance > float.Epsilon)
+                while (navAgent.pathPending) yield return null;
+                
+                while (navAgent.remainingDistance > navAgent.stoppingDistance)
                 {
                     yield return null;
                 }
-                
+
                 InvokeOnExecutionEnded(true);
             }
             else
