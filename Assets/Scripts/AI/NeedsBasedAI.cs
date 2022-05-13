@@ -101,7 +101,7 @@ namespace ORCAS
 
         private static List<Advertisement[]> GetAvailableAdvertisements(Agent agent)
         {
-            var advertisers = GlobalAdvertiserQuerySystem.Instance.QueryAllAdvertisers();
+            var advertisers = SimulationConfiguration.AdvertiserSystem.QueryAllAdvertisers();
 
             List<Advertisement[]> advertisements = new List<Advertisement[]>(advertisers.Count);
             foreach (var advertiser in advertisers)

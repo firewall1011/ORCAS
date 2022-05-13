@@ -9,12 +9,12 @@ namespace ORCAS
 
         private void OnEnable()
         {
-            GlobalAdvertiserQuerySystem.Instance?.Register(this);
+            SimulationConfiguration.AdvertiserSystem?.Register(this);
         }
 
         private void OnDisable()
         {
-            GlobalAdvertiserQuerySystem.Instance?.Unregister(this);
+            SimulationConfiguration.AdvertiserSystem?.Unregister(this);
         }
 
     }
