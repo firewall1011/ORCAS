@@ -477,10 +477,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 433002037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac62ff5d1802c94dabbb8ca7ab69037, type: 3}
+  m_Script: {fileID: 11500000, guid: db5c2c18fcbd0d24794715b9109717d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _secondsPerSimulatedDay: 60
+  _secondsPerMinute: 0.5
 --- !u!4 &433002039
 Transform:
   m_ObjectHideFlags: 0
@@ -1024,11 +1024,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000639624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb0d51f39b125043b57ebff77587b21, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7a13436876815408627f27b1fa1ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 346184400}
-  _timeController: {fileID: 433002038}
+  displayMesh: {fileID: 346184400}
 --- !u!114 &1000639627
 MonoBehaviour:
   m_ObjectHideFlags: 0
