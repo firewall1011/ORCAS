@@ -2,6 +2,7 @@
 
 namespace ORCAS
 {
+
     public class Location : MonoBehaviourAdvertiser
     {
         [SerializeField] private NeedType _satisfiedNeed;
