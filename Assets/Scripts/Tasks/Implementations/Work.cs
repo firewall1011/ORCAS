@@ -27,11 +27,9 @@ namespace ORCAS
 
             while (SimulationConfiguration.DateTimeManager.DateTime < endingTime)
             {
-                Debug.Log($"{agent.name} has to work more: {(endingTime - SimulationConfiguration.DateTimeManager.DateTime).TotalHours}");
                 yield return null;
             }
 
-            Debug.Log("Finished working");
             InvokeOnExecutionEnded(true);
         }
     }
