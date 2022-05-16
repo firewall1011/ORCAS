@@ -2,13 +2,13 @@
 
 namespace ORCAS
 {
-    public class MoveHomeWithNavMeshTaskHolder : TaskHolder
+    public class MoveHomeTaskHolder : TaskHolder
     {
         [SerializeField] private Transform _home;
 
         private void Awake()
         {
-            Task = new MoveWithNavMesh(_home);
+            Task = new MoveTo(_home);
         }
     }
 }

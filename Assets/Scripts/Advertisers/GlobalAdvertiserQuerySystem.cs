@@ -7,20 +7,8 @@ namespace ORCAS
 {
     public class GlobalAdvertiserQuerySystem : MonoBehaviour
     {
-        public static GlobalAdvertiserQuerySystem Instance = null;
-
         private List<IAdvertiser> _advertisers = new List<IAdvertiser>();
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Destroy(Instance);
-            }
-
-            Instance = this;
-        }
-
+        
         public List<IAdvertiser> QueryAllAdvertisers() => _advertisers;
         public List<IAdvertiser> QueryAdvertisers(Func<IAdvertiser, bool> filter)
         {
@@ -36,6 +24,5 @@ namespace ORCAS
         {
             _advertisers.Remove(advertiser);
         }
-
     }
 }

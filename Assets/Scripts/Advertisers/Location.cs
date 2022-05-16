@@ -2,6 +2,7 @@
 
 namespace ORCAS
 {
+
     public class Location : MonoBehaviourAdvertiser
     {
         [SerializeField] private NeedType _satisfiedNeed;
@@ -21,7 +22,7 @@ namespace ORCAS
 
         private Advertisement CreateAdvertisement()
         {
-            return new Advertisement(new MoveWithNavMesh(transform), new Reward(_satisfiedNeed, _rewardAmount));
+            return new Advertisement(new MoveTo(transform), new Reward(_satisfiedNeed, _rewardAmount));
         }
     }
 }
