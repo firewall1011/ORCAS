@@ -5,7 +5,7 @@ namespace ORCAS
     public abstract class ScriptableObjectAdvertiser : ScriptableObject, IAdvertiser
     {
         public virtual string GetTag() => "";
-        public abstract Advertisement[] AdvertiseTasksFor(Agent agent);
+        public abstract TaskSequence[] AdvertiseTasksFor(Agent agent);
 
         private void OnEnable()
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ORCAS
@@ -50,28 +51,26 @@ namespace ORCAS
 
         public bool SelectTaskSequence()
         {
-            List<Advertisement[]> availableAds = GetAvailableAdvertisements(_agent);
+            List<TaskSequence> availableAds = GetAvailableAdvertisements(_agent);
 
             float[] advsScores = ScoreAdvertisements(availableAds);
 
-            Advertisement[] selectedAdvs = SelectAdvertisement(advsScores, availableAds);
+            TaskSequence selectedSequence = SelectAdvertisement(advsScores, availableAds);
             
-            EnqueueAdvertisements(selectedAdvs);
+            EnqueueAdvertisements(selectedSequence);
 
-            return selectedAdvs.Length > 0;
+            return selectedSequence.Tasks.Length > 0;
         }
 
-        private void EnqueueAdvertisements(Advertisement[] selectedAdvs)
+        private void EnqueueAdvertisements(TaskSequence selectedTaskSequence)
         {
-            foreach ((Task task, Reward reward) in selectedAdvs)
+            foreach (Task task in selectedTaskSequence.Tasks)
             {
-                task.OnExecutionEnded += GiveReward(reward);
-
                 _agent.TaskQueue.Enqueue(task);
             }
         }
 
-        private float[] ScoreAdvertisements(List<Advertisement[]> advertisements)
+        private float[] ScoreAdvertisements(List<TaskSequence> advertisements)
         {
             float[] scores = new float[advertisements.Count];
 
@@ -79,13 +78,14 @@ namespace ORCAS
             {
                 float total = 0;
 
-                foreach ((Task task, Reward reward) in advertisements[i])
+                foreach (IRewardable reward in advertisements[i].Rewards)
                 {
-                    float pastValue = _needsController.GetNeed(reward.NeedType).Amount;
-                    float newValue = _needsController.GetResultingNeedAmount(reward);
+                    float pastValue = reward.GetCurrentValue(_agent);
+                    float newValue = reward.GetAppliedValue(_agent);
 
                     float newScore = Atenuation(pastValue) - Atenuation(newValue);
-                    total += newScore * _needsController.Profile.GetScoringMultiplier(reward.NeedType);
+                    total += newScore;//* _needsController.Profile.GetScoringMultiplier(reward.Type);
+                    //TODO: Apply scoring profile
                 }
 
                 scores[i] = total;
@@ -94,31 +94,22 @@ namespace ORCAS
             return scores;
         }
 
-        private Advertisement[] SelectAdvertisement(float[] scores, List<Advertisement[]> advertisements)
+        private TaskSequence SelectAdvertisement(float[] scores, List<TaskSequence> advertisements)
         {
             return _selectionStrategy.Select(_agent, scores, advertisements);
         }
 
-        private static List<Advertisement[]> GetAvailableAdvertisements(Agent agent)
+        private static List<TaskSequence> GetAvailableAdvertisements(Agent agent)
         {
             var advertisers = SimulationConfiguration.AdvertiserSystem.QueryAllAdvertisers();
 
-            List<Advertisement[]> advertisements = new List<Advertisement[]>(advertisers.Count);
+            List<TaskSequence> advertisements = new List<TaskSequence>(advertisers.Count);
             foreach (var advertiser in advertisers)
             {
-                advertisements.Add(advertiser.AdvertiseTasksFor(agent));
+                advertisements.AddRange(advertiser.AdvertiseTasksFor(agent));
             }
 
             return advertisements;
-        }
-
-        private Action<bool> GiveReward(Reward reward)
-        {
-            return 
-                (success) =>
-                {
-                    if (success) _needsController.ApplyReward(reward);
-                };
         }
 
         private float Atenuation(float value)

@@ -2,7 +2,7 @@ namespace ORCAS
 {
     public interface IAdvertiser
     {
-        Advertisement[] AdvertiseTasksFor(Agent agent);
+        TaskSequence[] AdvertiseTasksFor(Agent agent);
         string GetTag();
     }
 }

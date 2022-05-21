@@ -5,7 +5,7 @@ namespace ORCAS
 {
     public class BestScoreSelector : MonoBehaviour, IAdvertisementSelector
     {
-        public Advertisement[] Select(Agent agent, float[] scores, List<Advertisement[]> advertisements)
+        public TaskSequence Select(Agent agent, float[] scores, List<TaskSequence> advertisements)
         {
             int bestIndex = -1;
             float bestScore = float.MinValue;

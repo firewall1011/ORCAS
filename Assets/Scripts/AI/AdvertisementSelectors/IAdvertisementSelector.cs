@@ -4,6 +4,6 @@ namespace ORCAS
 {
     public interface IAdvertisementSelector
     {
-        Advertisement[] Select(Agent agent, float[] scores, List<Advertisement[]> advertisements);
+        TaskSequence Select(Agent agent, float[] scores, List<TaskSequence> advertisements);
     }
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using ORCAS.Utils;
 
 namespace ORCAS
 {
@@ -18,25 +18,27 @@ namespace ORCAS
             Debug.Assert(_satisfiedNeed != null);
         }
 #endif
-        public override Advertisement[] AdvertiseTasksFor(Agent agent)
+        public override TaskSequence[] AdvertiseTasksFor(Agent agent)
         {
-            if (!IsWorkOpen(SimulationConfiguration.DateTimeManager.DateTime))
+            if (!IsWorkOpen())
             {
-                return new Advertisement[0];
+                return new TaskSequence[0];
             }
 
-            Reward reward = new Reward(_satisfiedNeed, _rewardAmount);
-            
-            return new Advertisement[1] 
+            NeedReward rewardPerHour = new NeedReward(_satisfiedNeed, _rewardAmount);
+            NeedReward totalReward = new NeedReward(_satisfiedNeed, (int) (_rewardAmount * _workingTime));
+
+            Task[] workTasks = new Task[] { new MoveTo(transform), new Work(_workingTime, rewardPerHour) };
+            IRewardable[] rewards = new IRewardable[] { totalReward };
+            return new TaskSequence[]
             {  
-                new Advertisement(new Work(_workingTime, reward), reward)
-                //new Advertisement(new MoveTo(transform), new Reward(_satisfiedNeed, 0f)),
+                new TaskSequence(workTasks, rewards)
             };
         }
 
-        private bool IsWorkOpen(System.DateTime dayTime)
+        private bool IsWorkOpen()
         {
-            return dayTime.Hour >= openingHour && dayTime.Hour < closingHour;
+            return DateTimeHelper.IsBetweenHours(SimulationConfiguration.DateTimeManager.DateTime, openingHour, closingHour);
         }
     }
 }
