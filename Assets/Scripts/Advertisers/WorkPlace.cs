@@ -1,23 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
 using ORCAS.Utils;
 
 namespace ORCAS
 {
     public class WorkPlace : MonoBehaviourAdvertiser
     {
-        [SerializeField] private NeedType _satisfiedNeed;
-        [SerializeField] private float _rewardAmount = 20f;
-        [SerializeField] private double _workingTime = 2.5f;
+        [SerializeField] private ResourceReward[] _resourceRewardsPerHour;
+        [SerializeField] private NeedReward[] _needRewardsPerHour;
+        [SerializeField] private int _workingTime = 2;
         
         [SerializeField, Range(1, 24)] private int openingHour;
         [SerializeField, Range(1, 24)] private int closingHour;
 
-#if UNITY_EDITOR || DEBUG
+        private IRewardable[] _rewardsPerHour;
+        private IRewardable[] _rewardsTotal;
+
         private void Awake()
         {
-            Debug.Assert(_satisfiedNeed != null);
+            var rewardsPerHour = new List<IRewardable>();
+            rewardsPerHour.AddRange(_resourceRewardsPerHour);
+            rewardsPerHour.AddRange(_needRewardsPerHour);
+            
+            var rewardsTotal = new List<IRewardable>();
+            rewardsTotal.AddRange(_resourceRewardsPerHour.Select(
+                    reward => new ResourceReward(reward.Resource, (float)(reward.Delta * _workingTime)))
+            );
+            rewardsTotal.AddRange(_needRewardsPerHour.Select(
+                    reward => new NeedReward(reward.Type, (float)(reward.Delta * _workingTime)))
+            );
+
+            _rewardsPerHour = rewardsPerHour.ToArray();
+            _rewardsTotal = rewardsTotal.ToArray();
         }
-#endif
+
         public override TaskSequence[] AdvertiseTasksFor(Agent agent)
         {
             if (!IsWorkOpen())
@@ -25,14 +42,11 @@ namespace ORCAS
                 return new TaskSequence[0];
             }
 
-            NeedReward rewardPerHour = new NeedReward(_satisfiedNeed, _rewardAmount);
-            NeedReward totalReward = new NeedReward(_satisfiedNeed, (int) (_rewardAmount * _workingTime));
-
-            Task[] workTasks = new Task[] { new MoveTo(transform), new Work(_workingTime, rewardPerHour) };
-            IRewardable[] rewards = new IRewardable[] { totalReward };
+            Task[] workTasks = new Task[] { new MoveTo(transform), new Work(_workingTime, _rewardsPerHour) };
+            
             return new TaskSequence[]
             {  
-                new TaskSequence(workTasks, rewards)
+                new TaskSequence(workTasks, _rewardsTotal)
             };
         }
 

@@ -1,9 +1,10 @@
 ﻿namespace ORCAS
 {
+    [System.Serializable]
     public class NeedReward : IRewardable
     {
-        public readonly NeedType Type;
-        public readonly float Delta;
+        public NeedType Type;
+        public float Delta;
 
         public NeedReward(NeedType type, float delta)
         {

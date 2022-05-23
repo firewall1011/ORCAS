@@ -153,13 +153,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49080184}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ce67ae3ddfa1094f87baae6c12a027d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _satisfiedNeed: {fileID: 11400000, guid: 5e9e87231f56f8c45bc45679883bd541, type: 2}
-  _rewardAmount: 90
+  _rewardAmount: 100
 --- !u!4 &49080186
 Transform:
   m_ObjectHideFlags: 0
@@ -186,9 +186,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b410825f0637d4aa8428b6e085c97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _satisfiedNeed: {fileID: 11400000, guid: d6247fe6dbdecb0479c1d919ccd448f5, type: 2}
-  _rewardAmount: 20
-  _workingTime: 1
+  _resourceRewardsPerHour:
+  - Resource: {fileID: 11400000, guid: e6fe7a970ac20024cbe2568b89732384, type: 2}
+    Delta: 12
+  _needRewardsPerHour:
+  - Type: {fileID: 11400000, guid: 26a9899ceb53000479647381ca60b9ae, type: 2}
+    Delta: -5
+  - Type: {fileID: 11400000, guid: 5e9e87231f56f8c45bc45679883bd541, type: 2}
+    Delta: -5
+  _workingTime: 5
   openingHour: 5
   closingHour: 21
 --- !u!4 &146820012 stripped
@@ -449,13 +455,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417031134}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ce67ae3ddfa1094f87baae6c12a027d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _satisfiedNeed: {fileID: 11400000, guid: 26a9899ceb53000479647381ca60b9ae, type: 2}
-  _rewardAmount: 60
+  _rewardAmount: 80
 --- !u!4 &417031136
 Transform:
   m_ObjectHideFlags: 0
@@ -482,9 +488,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b410825f0637d4aa8428b6e085c97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _satisfiedNeed: {fileID: 11400000, guid: d6247fe6dbdecb0479c1d919ccd448f5, type: 2}
-  _rewardAmount: 15
-  _workingTime: 0.5
+  _resourceRewardsPerHour:
+  - Resource: {fileID: 11400000, guid: e6fe7a970ac20024cbe2568b89732384, type: 2}
+    Delta: 5
+  _needRewardsPerHour:
+  - Type: {fileID: 11400000, guid: 26a9899ceb53000479647381ca60b9ae, type: 2}
+    Delta: 1
+  _workingTime: 3
   openingHour: 11
   closingHour: 16
 --- !u!1 &705507993
@@ -1464,7 +1474,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965918237}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ce67ae3ddfa1094f87baae6c12a027d, type: 3}
   m_Name: 
@@ -1514,9 +1524,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b410825f0637d4aa8428b6e085c97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _satisfiedNeed: {fileID: 11400000, guid: d6247fe6dbdecb0479c1d919ccd448f5, type: 2}
-  _rewardAmount: 100
-  _workingTime: 5
+  _resourceRewardsPerHour:
+  - Resource: {fileID: 11400000, guid: e6fe7a970ac20024cbe2568b89732384, type: 2}
+    Delta: 10
+  _needRewardsPerHour:
+  - Type: {fileID: 11400000, guid: 5e9e87231f56f8c45bc45679883bd541, type: 2}
+    Delta: -1
+  - Type: {fileID: 11400000, guid: 26a9899ceb53000479647381ca60b9ae, type: 2}
+    Delta: -2
+  _workingTime: 2
   openingHour: 7
   closingHour: 17
 --- !u!4 &2044032225
@@ -1688,7 +1704,8 @@ PrefabInstance:
       propertyPath: _home
       value: 
       objectReference: {fileID: 1713883104}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6462242330490798781, guid: eae0568635238804ab10d288fa6bdf9a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eae0568635238804ab10d288fa6bdf9a, type: 3}
 --- !u!1001 &3963550279735510192
 PrefabInstance:
@@ -1744,6 +1761,10 @@ PrefabInstance:
     - target: {fileID: 3963550279994329868, guid: 6022a8b60df78fe4593d1364298f9305, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3963550279994329871, guid: 6022a8b60df78fe4593d1364298f9305, type: 3}
+      propertyPath: _secondsPerMinute
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6022a8b60df78fe4593d1364298f9305, type: 3}
