@@ -7,7 +7,7 @@ namespace ORCAS.Assets.Scripts
     public class InventoryComponent : MonoBehaviour
     {
         [SerializeField] private List<ResourceAmount> _initialResources;
-        [SerializeField] private Inventory _inventory;
+        private Inventory _inventory;
 
         public Inventory Inventory => _inventory;
 
