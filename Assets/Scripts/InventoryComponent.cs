@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using static ORCAS.Inventory;
 
-namespace ORCAS.Assets.Scripts
+namespace ORCAS
 {
     public class InventoryComponent : MonoBehaviour
     {
