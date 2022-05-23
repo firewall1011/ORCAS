@@ -4,7 +4,7 @@ namespace ORCAS
 {
     public abstract class MonoBehaviourAdvertiser : MonoBehaviour, IAdvertiser
     {
-        public abstract Advertisement[] AdvertiseTasksFor(Agent agent);
+        public abstract TaskSequence[] AdvertiseTasksFor(Agent agent);
         public virtual string GetTag() => tag;
 
         private void OnEnable()

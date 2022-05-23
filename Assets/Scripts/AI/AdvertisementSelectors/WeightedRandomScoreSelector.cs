@@ -9,11 +9,11 @@ namespace ORCAS
         [SerializeField, Tooltip("Will choose between top n high-scoring")] 
         private int n = 3;
 
-        public Advertisement[] Select(Agent agent, float[] scores, List<Advertisement[]> advertisements)
+        public TaskSequence Select(Agent agent, float[] scores, List<TaskSequence> advertisements)
         {
             if(scores.Length == 0)
             {
-                return new Advertisement[0];
+                return TaskSequence.EmptySequence;
             }
 
             SortedList<float, int> sortedScores = new SortedList<float, int>((scores.Length));

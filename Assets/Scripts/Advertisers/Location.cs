@@ -15,14 +15,18 @@ namespace ORCAS
         }
 #endif
 
-        public override Advertisement[] AdvertiseTasksFor(Agent agent)
+        public override TaskSequence[] AdvertiseTasksFor(Agent agent)
         {
-            return new Advertisement[1] { CreateAdvertisement() };
+            return new TaskSequence[1] { CreateAdvertisement() };
         }
 
-        private Advertisement CreateAdvertisement()
+        private TaskSequence CreateAdvertisement()
         {
-            return new Advertisement(new MoveTo(transform), new Reward(_satisfiedNeed, _rewardAmount));
+            NeedReward rewardPerHour = new NeedReward(_satisfiedNeed, _rewardAmount);
+            
+            var tasks = new Task[] { new MoveTo(transform), new Work(1, rewardPerHour) };
+            var rewards = new IRewardable[] { rewardPerHour };
+            return new TaskSequence(tasks, rewards);
         }
     }
 }

@@ -20,9 +20,9 @@ namespace ORCAS
             DecayNeeds();
         }
 
-        public void ApplyReward(Reward reward)
+        public void ApplyReward(NeedReward reward)
         {
-            int index = GetNeedIndex(reward.NeedType);
+            int index = GetNeedIndex(reward.Type);
 
             Need need = CurrentNeeds[index];
             need.Amount = GetResultingNeedAmount(reward);
@@ -30,10 +30,18 @@ namespace ORCAS
             CurrentNeeds[index] = need;
         }
 
-        public float GetResultingNeedAmount(Reward reward)
+        public void ApplyReward(NeedReward[] rewards)
         {
-            var need = GetNeed(reward.NeedType);
-            return Mathf.Min(need.Amount + reward.Amount, Profile.MaximumNeedAmount);
+            foreach(var reward in rewards)
+            {
+                ApplyReward(reward);
+            }
+        }
+
+        public float GetResultingNeedAmount(NeedReward reward)
+        {
+            var need = GetNeed(reward.Type);
+            return Mathf.Min(need.Amount + reward.Delta, Profile.MaximumNeedAmount);
         }
 
         public Need GetNeed(NeedType type) => CurrentNeeds.Find((need) => need.Type == type);
