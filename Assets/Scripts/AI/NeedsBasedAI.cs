@@ -1,13 +1,11 @@
-using ORCAS.Advertisement;
-using ORCAS.Tasks;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using ORCAS.Tasks;
+using ORCAS.Advertisement;
 
 namespace ORCAS
 {
-    public class NeedsBasedAI : MonoBehaviour
+    public class NeedsBasedAI : MonoBehaviour, IAgentAI
     {
         /*
          High-level AI loop:
@@ -15,64 +13,35 @@ namespace ORCAS
             If you run out of actions, perform action selection based on current needs, to find more actions
             If you still have nothing to do, do some fallback actions
          */
-        private Agent _agent;
-        private NeedsController _needsController;
         private IAdvertisementSelector _selectionStrategy;
 
         private void Awake()
         {
             _selectionStrategy = GetComponent<IAdvertisementSelector>();
-            _agent = GetComponent<Agent>();
-            _needsController = _agent.GetComponent<NeedsController>();
         }
 
-        private void Update()
+        public bool SelectTaskSequence(Agent agent)
         {
-            if (_agent.IsPerformingTask())
-            {
-                return;
-            }
+            List<TaskSequence> availableAds = GetAvailableAdvertisements(agent);
 
-            if(_agent.TaskQueue.Count == 0)
-            {
-                if (!SelectTaskSequence())
-                {
-                    PerformFallbackTask();
-                }
-            }
-            else
-            {
-                PerformTaskInQueue();
-            }
-        }
+            float[] advsScores = ScoreAdvertisements(agent, availableAds);
 
-        public void PerformTaskInQueue()
-        {
-            _agent.PerformTaskInQueue();
-        }
+            TaskSequence selectedSequence = SelectAdvertisement(agent, advsScores, availableAds);
 
-        public bool SelectTaskSequence()
-        {
-            List<TaskSequence> availableAds = GetAvailableAdvertisements(_agent);
-
-            float[] advsScores = ScoreAdvertisements(availableAds);
-
-            TaskSequence selectedSequence = SelectAdvertisement(advsScores, availableAds);
-            
-            EnqueueAdvertisements(selectedSequence);
+            EnqueueAdvertisements(agent.TaskExecutioner, selectedSequence);
 
             return selectedSequence.Tasks.Length > 0;
         }
 
-        private void EnqueueAdvertisements(TaskSequence selectedTaskSequence)
+        private void EnqueueAdvertisements(TaskExecutioner executioner, TaskSequence selectedTaskSequence)
         {
             foreach (Task task in selectedTaskSequence.Tasks)
             {
-                _agent.TaskQueue.Enqueue(task);
+                executioner.TaskQueue.Enqueue(task);
             }
         }
 
-        private float[] ScoreAdvertisements(List<TaskSequence> advertisements)
+        private float[] ScoreAdvertisements(Agent agent, List<TaskSequence> advertisements)
         {
             float[] scores = new float[advertisements.Count];
 
@@ -82,8 +51,8 @@ namespace ORCAS
 
                 foreach (IRewardable reward in advertisements[i].Rewards)
                 {
-                    float pastValue = reward.GetCurrentValue(_agent);
-                    float newValue = reward.GetAppliedValue(_agent);
+                    float pastValue = reward.GetCurrentValue(agent);
+                    float newValue = reward.GetAppliedValue(agent);
 
                     float newScore = Atenuation(pastValue) - Atenuation(newValue);
                     total += newScore;//* _needsController.Profile.GetScoringMultiplier(reward.Type);
@@ -96,9 +65,9 @@ namespace ORCAS
             return scores;
         }
 
-        private TaskSequence SelectAdvertisement(float[] scores, List<TaskSequence> advertisements)
+        private TaskSequence SelectAdvertisement(Agent agent, float[] scores, List<TaskSequence> advertisements)
         {
-            return _selectionStrategy.Select(_agent, scores, advertisements);
+            return _selectionStrategy.Select(agent, scores, advertisements);
         }
 
         private static List<TaskSequence> GetAvailableAdvertisements(Agent agent)
@@ -118,11 +87,5 @@ namespace ORCAS
         {
             return 10f / value;
         }
-
-        public void PerformFallbackTask()
-        {
-            _agent.PerformFallbackTask();
-        }
-
     }
 }
