@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Tasks
 {
     public class TaskHolder : MonoBehaviour
     {

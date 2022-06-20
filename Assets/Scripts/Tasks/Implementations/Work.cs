@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Tasks
 {
     public class Work : Task
     {

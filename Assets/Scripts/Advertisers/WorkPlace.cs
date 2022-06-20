@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ORCAS.Utils;
+using ORCAS.Tasks;
 
-namespace ORCAS
+namespace ORCAS.Advertisement
 {
     public class WorkPlace : MonoBehaviourAdvertiser
     {

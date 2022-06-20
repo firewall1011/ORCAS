@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Advertisement
 {
     public abstract class ScriptableObjectAdvertiser : ScriptableObject, IAdvertiser
     {

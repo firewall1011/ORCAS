@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Tasks
 {
     public class MoveTo : Task
     {

@@ -1,4 +1,6 @@
-﻿namespace ORCAS
+﻿using ORCAS.Tasks;
+
+namespace ORCAS.Advertisement
 {
     public struct TaskSequence
     {

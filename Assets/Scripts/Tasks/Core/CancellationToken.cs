@@ -1,4 +1,4 @@
-namespace ORCAS
+namespace ORCAS.Tasks
 {
     public struct CancellationToken
     {
