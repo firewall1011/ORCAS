@@ -20,13 +20,11 @@ namespace ORCAS
             _selectionStrategy = GetComponent<IAdvertisementSelector>();
         }
 
-        public bool SelectTaskSequence(Agent agent)
+        public bool SelectTaskSequence(Agent agent, List<TaskSequence> availableAdvertisements)
         {
-            List<TaskSequence> availableAds = GetAvailableAdvertisements(agent);
+            float[] advsScores = ScoreAdvertisements(agent, availableAdvertisements);
 
-            float[] advsScores = ScoreAdvertisements(agent, availableAds);
-
-            TaskSequence selectedSequence = SelectAdvertisement(agent, advsScores, availableAds);
+            TaskSequence selectedSequence = SelectAdvertisement(agent, advsScores, availableAdvertisements);
 
             EnqueueAdvertisements(agent.TaskExecutioner, selectedSequence);
 
@@ -68,19 +66,6 @@ namespace ORCAS
         private TaskSequence SelectAdvertisement(Agent agent, float[] scores, List<TaskSequence> advertisements)
         {
             return _selectionStrategy.Select(agent, scores, advertisements);
-        }
-
-        private static List<TaskSequence> GetAvailableAdvertisements(Agent agent)
-        {
-            var advertisers = SimulationConfiguration.AdvertiserSystem.QueryAllAdvertisers();
-
-            List<TaskSequence> advertisements = new List<TaskSequence>(advertisers.Count);
-            foreach (var advertiser in advertisers)
-            {
-                advertisements.AddRange(advertiser.AdvertiseTasksFor(agent));
-            }
-
-            return advertisements;
         }
 
         private float Atenuation(float value)
