@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Advertisement
 {
     public class GlobalAdvertiserQuerySystem : MonoBehaviour
     {

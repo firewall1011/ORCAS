@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Utils
 {
     public class TimeManipulator : MonoBehaviour
     {

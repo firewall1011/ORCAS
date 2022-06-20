@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ORCAS.Tasks;
+using UnityEngine;
 
-namespace ORCAS
+namespace ORCAS.Advertisement
 {
 
     public class Location : MonoBehaviourAdvertiser

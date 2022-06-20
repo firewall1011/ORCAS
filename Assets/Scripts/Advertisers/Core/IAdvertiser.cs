@@ -1,4 +1,4 @@
-namespace ORCAS
+namespace ORCAS.Advertisement
 {
     public interface IAdvertiser
     {
