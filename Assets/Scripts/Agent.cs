@@ -1,54 +1,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ORCAS.Tasks;
+using ORCAS.Advertisement;
 
 namespace ORCAS
 {
+    [RequireComponent(typeof(TaskExecutioner))]
     public class Agent : MonoBehaviour
     {
-        public Queue<Task> TaskQueue = new Queue<Task>();
-
+        public TaskExecutioner TaskExecutioner { get; private set; }
+        public TripPlanner TripPlanner { get; private set; }
+        
         [SerializeField] private TaskHolder _fallbackTaskHolder;
-        [SerializeField] private TaskExecutioner _taskExecutioner;
-        private Task _currentTaskInExecution = null;
+        
+        private IAgentAI _ai;
 
-        public bool IsPerformingTask() => _currentTaskInExecution != null;
-
-        public void PerformFallbackTask()
+        private void Awake()
         {
-            TryPerformTask(_fallbackTaskHolder.Task);
+            _ai = GetComponent<IAgentAI>();
+            TaskExecutioner = GetComponent<TaskExecutioner>();
+            TaskExecutioner = GetComponent<TripPlanner>();
         }
 
-        public void PerformTaskInQueue()
+        private void Update()
         {
-            var task = TaskQueue.Dequeue();
-
-            TryPerformTask(task);
-        }
-
-        public bool TryPerformTask(Task task)
-        {
-            if (IsPerformingTask())
+            if (TaskExecutioner.IsPerformingTask())
             {
-                return false;
+                return;
             }
 
-            task.OnExecutionEnded += Task_OnExecutionEnded;
-            _currentTaskInExecution = task;
-
-            StartCoroutine(task.Perform(gameObject));
-
-            return true;
+            if (TaskExecutioner.TaskQueue.Count == 0)
+            {
+                if (!_ai.SelectTaskSequence(this, GetAvailableAdvertisements()))
+                {
+                    PerformFallbackTask();
+                }
+            }
+            else
+            {
+                TaskExecutioner.PerformTaskInQueue();
+            }
         }
 
-        public void AbortCurrentTask()
+        private void PerformFallbackTask()
         {
-            _currentTaskInExecution.Abort();
+            TaskExecutioner.TryPerformTask(_fallbackTaskHolder.Task);
         }
 
-        private void Task_OnExecutionEnded(bool success)
+        private List<TaskSequence> GetAvailableAdvertisements()
         {
-            _currentTaskInExecution = null;
+            var advertisers = SimulationConfiguration.AdvertiserSystem.QueryAllAdvertisers();
+
+            List<TaskSequence> advertisements = new List<TaskSequence>(advertisers.Count);
+            foreach (var advertiser in advertisers)
+            {
+                advertisements.AddRange(advertiser.AdvertiseTasksFor(this));
+            }
+
+            return advertisements;
         }
     }
 }

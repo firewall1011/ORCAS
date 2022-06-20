@@ -140,11 +140,12 @@ GameObject:
   - component: {fileID: 996576308091910618}
   - component: {fileID: 4225739988210245971}
   - component: {fileID: 996576308091910616}
+  - component: {fileID: 5363116930369839111}
   - component: {fileID: 2005496335623600177}
   - component: {fileID: 996576308091910598}
   - component: {fileID: 996576308091910619}
   - component: {fileID: 996576308091910599}
-  - component: {fileID: 3946547639832601157}
+  - component: {fileID: 8590024414355314300}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -203,6 +204,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fallbackTaskHolder: {fileID: 2005496335623600177}
+--- !u!114 &5363116930369839111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996576308091910621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe93480efd44f0a48b119c850794b08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2005496335623600177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   n: 3
---- !u!114 &3946547639832601157
+--- !u!114 &8590024414355314300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,12 +276,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 996576308091910621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be8729c46dfe2544b34be85f5bbdaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: e24d8716855ee044ba7cb2fe18fe4e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _initialResources:
   - Resource: {fileID: 11400000, guid: e6fe7a970ac20024cbe2568b89732384, type: 2}
-    Amount: 1000
+    Amount: 100
+  - Resource: {fileID: 11400000, guid: b87e2a8032fea75469c737a06896cdc7, type: 2}
+    Amount: 100
 --- !u!1 &996576308854955905
 GameObject:
   m_ObjectHideFlags: 0
