@@ -35,7 +35,7 @@ namespace ORCAS
                 }
             }
 
-            int length = n < scores.Length ? n : scores.Length;
+            int length = n < sortedScores.Keys.Count ? n : sortedScores.Keys.Count;
             
             float total = SumTopNScores(sortedScores.Keys, length);
             int selectedIndex = MakeGuess(sortedScores, total, length);
