@@ -1,0 +1,17 @@
+{
+    "name": "ORCAS.Interactivity",
+    "rootNamespace": "",
+    "references": [
+        "GUID:54306d8a68f796f4ca9d4c0927aa950d",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

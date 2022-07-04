@@ -31,6 +31,9 @@ namespace ORCAS.Advertisement
             rewardsTotal.AddRange(_needRewardsPerHour.Select(
                     reward => new NeedReward(reward.Type, (float)(reward.Delta * _workingTime)))
             );
+            
+            TransportationReward transportCost = new TransportationReward(transform.position);
+            rewardsTotal.Add(transportCost);
 
             _rewardsPerHour = rewardsPerHour.ToArray();
             _rewardsTotal = rewardsTotal.ToArray();

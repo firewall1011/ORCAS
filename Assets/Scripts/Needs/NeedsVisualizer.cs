@@ -37,6 +37,9 @@ namespace ORCAS
 
         private void Update()
         {
+            if (_controller is null)
+                return;
+
             int i = 0;
             foreach(var need in _controller.CurrentNeeds)
             {

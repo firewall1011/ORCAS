@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ORCAS.Tasks;
 using ORCAS.Advertisement;
+using ORCAS.Transport;
 
 namespace ORCAS
 {
@@ -10,6 +11,8 @@ namespace ORCAS
     {
         public TaskExecutioner TaskExecutioner { get; private set; }
         public TripPlanner TripPlanner { get; private set; }
+        public WalkingTransportSystem WalkingSystem { get; private set; } = new WalkingTransportSystem();
+        public List<ITransportSystem> TransportSystems { get; private set; } = new List<ITransportSystem>();
         
         [SerializeField] private TaskHolder _fallbackTaskHolder;
         
@@ -19,7 +22,8 @@ namespace ORCAS
         {
             _ai = GetComponent<IAgentAI>();
             TaskExecutioner = GetComponent<TaskExecutioner>();
-            TaskExecutioner = GetComponent<TripPlanner>();
+            TripPlanner = GetComponent<TripPlanner>();
+            TransportSystems.Add(WalkingSystem);
         }
 
         private void Update()

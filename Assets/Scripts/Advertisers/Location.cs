@@ -24,9 +24,10 @@ namespace ORCAS.Advertisement
         private TaskSequence CreateAdvertisement()
         {
             NeedReward rewardPerHour = new NeedReward(_satisfiedNeed, _rewardAmount);
+            TransportationReward transportCost = new TransportationReward(transform.position);
             
             var tasks = new Task[] { new MoveTo(transform), new Work(1, rewardPerHour) };
-            var rewards = new IRewardable[] { rewardPerHour };
+            var rewards = new IRewardable[] { rewardPerHour, transportCost };
             return new TaskSequence(tasks, rewards);
         }
     }
