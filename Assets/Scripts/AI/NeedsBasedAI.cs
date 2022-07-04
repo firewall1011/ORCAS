@@ -47,15 +47,14 @@ namespace ORCAS
             {
                 float total = 0;
 
+                Debug.Log(advertisements[i].TaskName + ": ");
                 foreach (IRewardable reward in advertisements[i].Rewards)
                 {
-                    float pastValue = reward.GetCurrentValue(agent);
-                    float newValue = reward.GetAppliedValue(agent);
-
-                    float newScore = Atenuation(pastValue) - Atenuation(newValue);
-                    total += newScore;//* _needsController.Profile.GetScoringMultiplier(reward.Type);
-                    //TODO: Apply scoring profile
+                    float newScore = reward.GetScore(agent, Atenuation);
+                    Debug.Log($"    {reward.GetType()} adds {newScore}");
+                    total += newScore;
                 }
+                Debug.Log("Scores: " + total);
 
                 scores[i] = total;
             }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ORCAS
@@ -19,12 +20,19 @@ namespace ORCAS
         public float GetAppliedValue(Agent agent)
         {
             var travelTime = agent.TripPlanner.CalculateTripCost(agent, Destination, SimulationConfiguration.DateTimeManager.DateTime);
-            return 1f / travelTime;
+            return travelTime;
         }
 
         public float GetCurrentValue(Agent agent)
         {
             return 0f;
+        }
+
+        public float GetScore(Agent agent, Func<float, float> atenuationFunc)
+        {
+            float newValue = GetAppliedValue(agent);
+
+            return atenuationFunc(newValue);
         }
     }
 }

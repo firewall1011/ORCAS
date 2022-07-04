@@ -1,4 +1,6 @@
-﻿namespace ORCAS
+﻿using System;
+
+namespace ORCAS
 {
     [System.Serializable]
     public class NeedReward : IRewardable
@@ -32,6 +34,14 @@
         {
             type = Type;
             amount = Delta;
+        }
+
+        public float GetScore(Agent agent, Func<float, float> atenuationFunc)
+        {
+            float pastValue = GetCurrentValue(agent);
+            float newValue =  GetAppliedValue(agent);
+
+            return atenuationFunc(pastValue) - atenuationFunc(newValue);
         }
     }
 }

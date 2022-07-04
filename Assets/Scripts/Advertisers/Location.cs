@@ -6,6 +6,7 @@ namespace ORCAS.Advertisement
 
     public class Location : MonoBehaviourAdvertiser
     {
+        [SerializeField] private string ActivityName;
         [SerializeField] private NeedType _satisfiedNeed;
         [SerializeField] private float _rewardAmount = 20f;
 
@@ -28,7 +29,7 @@ namespace ORCAS.Advertisement
             
             var tasks = new Task[] { new MoveTo(transform), new Work(1, rewardPerHour) };
             var rewards = new IRewardable[] { rewardPerHour, transportCost };
-            return new TaskSequence(tasks, rewards);
+            return new TaskSequence(tasks, rewards, ActivityName);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ORCAS
+﻿using System;
+
+namespace ORCAS
 {
     [System.Serializable]
     public class ResourceReward : IRewardable
@@ -37,6 +39,14 @@
         {
             var inventory = agent.GetComponent<InventoryComponent>().Inventory;
             return inventory.GetAmount(Resource);
+        }
+
+        public float GetScore(Agent agent, Func<float, float> atenuationFunc)
+        {
+            float pastValue = GetCurrentValue(agent);
+            float newValue = GetAppliedValue(agent);
+
+            return atenuationFunc(pastValue) - atenuationFunc(newValue);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace ORCAS.Advertisement
 {
     public class WorkPlace : MonoBehaviourAdvertiser
     {
+        [SerializeField] private string JobName;
         [SerializeField] private ResourceReward[] _resourceRewardsPerHour;
         [SerializeField] private NeedReward[] _needRewardsPerHour;
         [SerializeField] private int _workingTime = 2;
@@ -47,10 +48,10 @@ namespace ORCAS.Advertisement
             }
 
             Task[] workTasks = new Task[] { new MoveTo(transform), new Work(_workingTime, _rewardsPerHour) };
-            
+
             return new TaskSequence[]
-            {  
-                new TaskSequence(workTasks, _rewardsTotal)
+            {
+                new TaskSequence(workTasks, _rewardsTotal, JobName + " at " + name)
             };
         }
 

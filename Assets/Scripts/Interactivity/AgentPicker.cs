@@ -23,6 +23,7 @@ namespace ORCAS
         [SerializeField] private Camera _camera;
         
         [Header("Configurations")]
+        [SerializeField] private float _radius = 10f;
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private float _maxDistance = 100f;
         
@@ -35,7 +36,6 @@ namespace ORCAS
             {
                 SelectAgentInView();
             }
-            Debug.Log(input);
         }
 
         public void SelectAgentInView()
@@ -43,7 +43,7 @@ namespace ORCAS
             var position = Mouse.current.position.ReadValue();
             var ray = _camera.ScreenPointToRay(position);
 
-            int numHits = Physics.RaycastNonAlloc(ray, _agentsRaycastHit, _maxDistance, _layerMask);
+            int numHits = Physics.SphereCastNonAlloc(ray, _radius, _agentsRaycastHit, _maxDistance, _layerMask);
 
             if(numHits >= 1)
             {
