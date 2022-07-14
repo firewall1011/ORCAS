@@ -46,7 +46,8 @@ namespace ORCAS
             float pastValue = GetCurrentValue(agent);
             float newValue = GetAppliedValue(agent);
 
-            return atenuationFunc(pastValue) - atenuationFunc(newValue);
+            float atenuatedScore = atenuationFunc(pastValue) - atenuationFunc(newValue);
+            return atenuatedScore * agent.Profile.ResourcesProfile.GetScoreFactor(Resource);
         }
     }
 }

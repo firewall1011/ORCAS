@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using ORCAS.Transport;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ORCAS.Tasks
 {
@@ -14,29 +16,20 @@ namespace ORCAS.Tasks
 
         public override IEnumerator Perform(GameObject agent)
         {
-            if (agent.TryGetComponent(out UnityEngine.AI.NavMeshAgent navAgent))
+            var agentComp = agent.GetComponent<Agent>();
+            var path = agentComp.TripPlanner.CalculatePath(agentComp, target);
+
+            foreach(var node in path)
             {
-                if (!navAgent.SetDestination(target.position))
+                yield return node.Transport(agentComp);
+                if (!node.Succeded)
                 {
                     InvokeOnExecutionEnded(false);
-                    Debug.LogError("Cannot reach " + target.name);
-                    Debug.Break();
                     yield break;
                 }
-
-                while (navAgent.pathPending) yield return null;
-                
-                while (navAgent.remainingDistance > navAgent.stoppingDistance)
-                {
-                    yield return null;
-                }
-
-                InvokeOnExecutionEnded(true);
             }
-            else
-            {
-                InvokeOnExecutionEnded(false);
-            }
+
+            InvokeOnExecutionEnded(true);
         }
     }
 }

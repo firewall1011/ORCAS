@@ -11,9 +11,10 @@ namespace ORCAS
     {
         public TaskExecutioner TaskExecutioner { get; private set; }
         public TripPlanner TripPlanner { get; private set; }
-        public WalkingTransportSystem WalkingSystem { get; private set; } = new WalkingTransportSystem();
+        public WalkingTransportSystem WalkingSystem { get; private set; }
         public List<ITransportSystem> TransportSystems { get; private set; } = new List<ITransportSystem>();
         
+        [field: SerializeField] public AgentProfile Profile { get; private set; }
         [SerializeField] private TaskHolder _fallbackTaskHolder;
         
         private IAgentAI _ai;
@@ -23,6 +24,7 @@ namespace ORCAS
             _ai = GetComponent<IAgentAI>();
             TaskExecutioner = GetComponent<TaskExecutioner>();
             TripPlanner = GetComponent<TripPlanner>();
+            WalkingSystem = GetComponent<WalkingTransportSystem>();
             TransportSystems.Add(WalkingSystem);
         }
 

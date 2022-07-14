@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ORCAS
 {
-    [CreateAssetMenu(menuName = "ORCAS/Needs Profile")]
+    [CreateAssetMenu(menuName = "ORCAS/Profiles/Needs")]
     public class NeedsProfile : ScriptableObject 
     {
         public SerializedList<NeedType> NeedTypes;
@@ -19,7 +19,7 @@ namespace ORCAS
             return _decayAmounts[index];
         }
 
-        public float GetScoringMultiplier(NeedType type)
+        public float GetScoreFactor(NeedType type)
         {
             int index = NeedTypes.List.FindIndex((t) => t == type);
             return _scoringMultipliers[index];

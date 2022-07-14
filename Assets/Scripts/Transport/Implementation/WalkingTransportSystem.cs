@@ -1,32 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace ORCAS.Transport
 {
-    public class WalkingTransportSystem : ITransportSystem
+    public class WalkingTransportSystem : MonoBehaviour, ITransportSystem
     {
-        public IEnumerable<Transportation> GetTransportationOptions(Agent agent, Vector3 position, Vector3 destination)
+        [SerializeField, Min(1f)] private float _walkSpeed;
+
+        public IEnumerable<Transportation> GetTransportationOptions(Agent agent, Transform current, Transform destination)
         {
             var speed = agent.GetComponent<NavMeshAgent>().speed;
-            float timeCost = Vector3.Distance(position, destination) * 100f / speed;
-            var walkToDestination = new Transportation()
-            {
-                StartPosition = position,
-                Destination = destination,
-                TimeCost = timeCost,
-
-            };
+            float timeCost = Vector3.Distance(current.position, destination.position) * 100f / speed;
+            var walkToDestination = new WalkingTransportation(current, destination, timeCost, _walkSpeed);
             return new Transportation[] { walkToDestination };
         }
-        
-        public IEnumerator Transport(Vector3 start, Vector3 destination, float time)
-        {
-            Debug.Log($"Walking from {start} to {destination}");
-            yield return new WaitForSeconds(time);
-            Debug.Log("Arrived by walking");
-        }
-
     }
 }

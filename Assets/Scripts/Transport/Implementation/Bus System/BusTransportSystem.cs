@@ -16,18 +16,18 @@ namespace ORCAS.Transport
             BusStops = transform.GetComponentsInChildren<BusStop>().ToList();
         }
 
-        public IEnumerable<Transportation> GetTransportationOptions(Agent agent, Vector3 position, Vector3 destination)
+        public IEnumerable<Transportation> GetTransportationOptions(Agent agent, Transform current, Transform destination)
         {
             List<Transportation> transportations = new List<Transportation>();
-            
-            var nearbyStops = BusStops.Where(t => Vector3.Distance(t.transform.position, position) <= minDistanceToWalkToStop);
-            var acessibleStops = BusStops.Where(t => Vector3.Distance(t.transform.position, position) <= minDistanceToCatchBus);
+
+            var nearbyStops = BusStops.Where(t => Vector3.Distance(t.transform.position, current.position) <= minDistanceToWalkToStop); ;
+            var acessibleStops = BusStops.Where(t => Vector3.Distance(t.transform.position, current.position) <= minDistanceToCatchBus);
 
             nearbyStops = nearbyStops.Except(acessibleStops);
 
             foreach(var stop in nearbyStops)
             {
-                transportations.AddRange(agent.WalkingSystem.GetTransportationOptions(agent, position, stop.transform.position));
+                transportations.AddRange(agent.WalkingSystem.GetTransportationOptions(agent, current, stop.DropTarget));
             }
 
             foreach(var stop in acessibleStops)

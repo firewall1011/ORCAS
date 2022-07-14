@@ -33,6 +33,7 @@ namespace ORCAS
 
         private void EnqueueAdvertisements(TaskExecutioner executioner, TaskSequence selectedTaskSequence)
         {
+            Debug.Log($"{executioner.name} is {selectedTaskSequence.TaskName}");
             foreach (Task task in selectedTaskSequence.Tasks)
             {
                 executioner.TaskQueue.Enqueue(task);
@@ -47,14 +48,11 @@ namespace ORCAS
             {
                 float total = 0;
 
-                Debug.Log(advertisements[i].TaskName + ": ");
                 foreach (IRewardable reward in advertisements[i].Rewards)
                 {
                     float newScore = reward.GetScore(agent, Atenuation);
-                    Debug.Log($"    {reward.GetType()} adds {newScore}");
                     total += newScore;
                 }
-                Debug.Log("Scores: " + total);
 
                 scores[i] = total;
             }

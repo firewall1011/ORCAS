@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 996576308091910618}
   m_RootOrder: 1
@@ -43,6 +44,7 @@ TrailRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -145,9 +147,10 @@ GameObject:
   - component: {fileID: 5363116930369839111}
   - component: {fileID: 2005496335623600177}
   - component: {fileID: 996576308091910598}
+  - component: {fileID: 3754274515596417237}
   - component: {fileID: 996576308091910619}
-  - component: {fileID: 996576308091910599}
   - component: {fileID: 8590024414355314300}
+  - component: {fileID: 131796610107827056}
   - component: {fileID: 2491451480207716823}
   m_Layer: 6
   m_Name: Agent
@@ -166,6 +169,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.92846, y: 7.979984, z: 15.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 996576308854955918}
   - {fileID: 97251030}
@@ -236,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e22804132bafa48b3f2c0e29382fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Profile>k__BackingField: {fileID: 11400000, guid: 0f9f8159283756e4abbf39d1b8267290, type: 2}
   _fallbackTaskHolder: {fileID: 2005496335623600177}
 --- !u!114 &5363116930369839111
 MonoBehaviour:
@@ -274,6 +279,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeb4ede9dc3d3946bf506142c2e84b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3754274515596417237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996576308091910621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98cb4ffaa952bb408742d2a0550dceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &996576308091910619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,19 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _profile: {fileID: 11400000, guid: 2c123158428eae3459ba124cde380735, type: 2}
---- !u!114 &996576308091910599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996576308091910621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4191866fa09e143946e5fc07ce9561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  n: 3
 --- !u!114 &8590024414355314300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +321,19 @@ MonoBehaviour:
     Amount: 100
   - Resource: {fileID: 11400000, guid: b87e2a8032fea75469c737a06896cdc7, type: 2}
     Amount: 100
+--- !u!114 &131796610107827056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996576308091910621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeab1ad0dc8c2324ca45640de71cea42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkSpeed: 21
 --- !u!114 &2491451480207716823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +374,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 0.5, y: 2, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 996576308091910618}
   m_RootOrder: 0
@@ -380,6 +398,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

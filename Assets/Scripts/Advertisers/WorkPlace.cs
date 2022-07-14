@@ -33,7 +33,7 @@ namespace ORCAS.Advertisement
                     reward => new NeedReward(reward.Type, (float)(reward.Delta * _workingTime)))
             );
             
-            TransportationReward transportCost = new TransportationReward(transform.position);
+            TransportationReward transportCost = new TransportationReward(transform);
             rewardsTotal.Add(transportCost);
 
             _rewardsPerHour = rewardsPerHour.ToArray();

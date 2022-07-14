@@ -5,9 +5,9 @@ namespace ORCAS
 {
     public class TransportationReward : IRewardable
     {
-        public readonly Vector3 Destination;
+        public readonly Transform Destination;
 
-        public TransportationReward(Vector3 destination)
+        public TransportationReward(Transform destination)
         {
             Destination = destination;
         }
@@ -19,7 +19,7 @@ namespace ORCAS
 
         public float GetAppliedValue(Agent agent)
         {
-            var travelTime = agent.TripPlanner.CalculateTripCost(agent, Destination, SimulationConfiguration.DateTimeManager.DateTime);
+            var travelTime = agent.TripPlanner.CalculateTripCost(agent, Destination);
             return travelTime;
         }
 
@@ -32,7 +32,7 @@ namespace ORCAS
         {
             float newValue = GetAppliedValue(agent);
 
-            return atenuationFunc(newValue);
+            return atenuationFunc(newValue) * agent.Profile.TransportScoreFactor;
         }
     }
 }
